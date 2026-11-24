@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Emmanuel AI Studio – AI images, video and voice-overs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef0f7;--surface:#fff;--ink:#1a1d3a;--muted:#5d6286;--line:#d6d9ea;--accent:#3b4bff;--accent-ink:#fff;--warn:#fff4d6;--warn-ink:#6b4e00;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14172e;--surface:#1d2142;--ink:#eceefb;--muted:#a3a8d0;--line:#2f3463;--accent:#7b87ff;--accent-ink:#10122a;--warn:#3a3217;--warn-ink:#ffe08a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14172e;--surface:#1d2142;--ink:#eceefb;--muted:#a3a8d0;--line:#2f3463;--accent:#7b87ff;--accent-ink:#10122a;--warn:#3a3217;--warn-ink:#ffe08a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Figtree,system-ui,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:28px 20px 56px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+.logo{font:800 20px Bricolage Grotesque,system-ui,sans-serif;letter-spacing:-.01em}
+.logo span{color:var(--accent)}
+nav a{color:var(--muted);text-decoration:none;font-weight:500;margin-left:18px;font-size:15px}
+nav a:hover{color:var(--ink)}
+h1{font:800 clamp(34px,7vw,60px)/1.02 Bricolage Grotesque,system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 14px;max-width:14em}
+.lead{color:var(--muted);max-width:34em;margin:0 0 30px;font-size:18px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.tab{appearance:none;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:18px;padding:16px 14px;text-align:left;cursor:pointer;font:inherit;transition:border-color .15s,transform .15s}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.tab b{display:block;font:800 19px Bricolage Grotesque,system-ui,sans-serif}
+.tab small{color:var(--muted);font-size:13.5px}
+.tab:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.panel{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:22px}
+.panel[hidden]{display:none}
+label{display:block;font-weight:600;margin:0 0 6px;font-size:15px}
+textarea,select,input[type=range]{width:100%;font:inherit;color:var(--ink)}
+textarea,select{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px}
+textarea{resize:vertical;min-height:96px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.btn{appearance:none;border:0;background:var(--accent);color:var(--accent-ink);font:600 16px Figtree,system-ui,sans-serif;padding:13px 22px;border-radius:12px;cursor:pointer;margin-top:16px}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line);margin-left:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.stage{margin-top:18px;border:2px dashed var(--line);border-radius:16px;min-height:180px;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
+.stage.wide{aspect-ratio:16/9;min-height:0}
+.stage.sq{aspect-ratio:1/1;max-width:340px;margin-inline:auto}
+.notice{margin-top:14px;background:var(--warn);color:var(--warn-ink);border-radius:12px;padding:12px 14px;font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{background:var(--bg);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:5px 12px;font-size:13.5px;cursor:pointer;font-family:inherit}
+.chip:hover{color:var(--ink);border-color:var(--accent)}
+.points{background:var(--surface);border:2px solid var(--line);border-radius:99px;padding:6px 14px;font-weight:600;font-size:14px}
+.plans{margin-top:48px}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plan{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:22px}
+.plan.pro{border-color:var(--accent)}
+.plan h3{font:800 22px Bricolage Grotesque,system-ui,sans-serif;margin:0 0 4px}
+.plan .price{font:800 28px Bricolage Grotesque,system-ui,sans-serif;margin-bottom:12px}
+.plan ul{padding-left:18px;color:var(--muted);margin:0}
+.plan .btn{margin-left:0}
+@media (max-width:620px){.plan-grid{grid-template-columns:1fr}}
+section.how{margin-top:48px}
+h2{font:800 28px Bricolage Grotesque,system-ui,sans-serif;letter-spacing:-.02em;margin:0 0 12px}
+.how p{color:var(--muted);max-width:40em;margin:0 0 10px}
+footer{margin-top:44px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:620px){.tabs{grid-template-columns:1fr}.row{grid-template-columns:1fr}nav{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">Emmanuel AI <span>Studio</span></div>
+  <nav><a href="#studio">Studio</a><a href="#plans">Plans</a><a href="#how">How it works</a></nav>
+  <div class="points" id="points">100 points</div>
+</header>
+
+<h1>Make images, videos and voice-overs from words.</h1>
+<p class="lead">Describe what you want, pick a tool, and create. One place for all three.</p>
+
+<main id="studio">
+  <div class="tabs" role="tablist" aria-label="Choose a tool">
+    <button class="tab" role="tab" id="t-image" aria-selected="true" aria-controls="p-image"><b>Image</b><small>Turn a description into a picture</small></button>
+    <button class="tab" role="tab" id="t-video" aria-selected="false" aria-controls="p-video"><b>Video</b><small>Turn a description into a short clip</small></button>
+    <button class="tab" role="tab" id="t-voice" aria-selected="false" aria-controls="p-voice"><b>Voice-over</b><small>Turn a script into speech</small></button>
+  </div>
+
+  <div class="panel" id="p-image" role="tabpanel" aria-labelledby="t-image">
+    <label for="img-prompt">Describe your image</label>
+    <textarea id="img-prompt" placeholder="A lion wearing a golden crown, sunset, cinematic"></textarea>
+    <div class="chips" data-target="img-prompt">
+      <button class="chip" type="button">A lion wearing a golden crown</button>
+      <button class="chip" type="button">A futuristic Lagos skyline at night</button>
+      <button class="chip" type="button">A cup of tea on a rainy window</button>
+    </div>
+    <div class="row">
+      <div><label for="img-style">Style</label><select id="img-style"><option>Realistic photo</option><option>Cartoon</option><option>Oil painting</option><option>3D render</option></select></div>
+      <div><label for="img-size">Shape</label><select id="img-size"><option>Square</option><option>Wide</option><option>Tall</option></select></div>
+    </div>
+    <button class="btn" id="img-go">Generate image</button>
+    <div class="stage sq" id="img-out">Your image will appear here.</div>
+  </div>
+
+  <div class="panel" id="p-video" role="tabpanel" aria-labelledby="t-video" hidden>
+    <label for="vid-prompt">Describe your video</label>
+    <textarea id="vid-prompt" placeholder="A drone flying over a green valley at sunrise"></textarea>
+    <div class="row">
+      <div><label for="vid-len">Length</label><select id="vid-len"><option>5 seconds</option><option>10 seconds</option></select></div>
+      <div><label for="vid-ratio">Format</label><select id="vid-ratio"><option>Wide (16:9)</option><option>Vertical (9:16)</option></select></div>
+    </div>
+    <button class="btn" id="vid-go">Generate video</button>
+    <div class="stage wide" id="vid-out">Your video will appear here.</div>
+  </div>
+
+  <div class="panel" id="p-voice" role="tabpanel" aria-labelledby="t-voice" hidden>
+    <label for="voice-text">Write your script</label>
+    <textarea id="voice-text">Welcome to Emmanuel AI Studio. Type any script here and listen to it read aloud.</textarea>
+    <div class="row">
+      <div><label for="voice-pick">Voice</label><select id="voice-pick"></select></div>
+      <div><label for="voice-rate">Speed</label><input type="range" id="voice-rate" min="0.6" max="1.5" step="0.1" value="1"></div>
+    </div>
+    <button class="btn" id="voice-play">Play voice-over</button><button class="btn alt" id="voice-stop">Stop</button>
+    <div class="notice">This voice-over uses your device’s built-in voices, so it works right now. Studio-quality AI voices come when the AI service is connected.</div>
+  </div>
+
+  <div class="notice" id="demo-note" hidden></div>
+</main>
+
+<section class="plans" id="plans">
+  <h2>Plans</h2>
+  <div class="plan-grid">
+    <div class="plan">
+      <h3>Free</h3>
+      <div class="price">No cost</div>
+      <ul><li>100 points to start</li><li>Image, video and voice-over tools</li><li>No card needed</li></ul>
+      <button class="btn alt plan-btn" data-plan="Free">Start free</button>
+    </div>
+    <div class="plan pro">
+      <h3>Pro</h3>
+      <div class="price">Price coming soon</div>
+      <ul><li>100 points every month</li><li>Points refill when your subscription renews</li><li>Image, video and voice-over tools</li></ul>
+      <button class="btn plan-btn" data-plan="Pro">Subscribe to Pro</button>
+    </div>
+  </div>
+  <div class="notice" id="plan-note" hidden></div>
+</section>
+
+<section class="how" id="how">
+  <h2>How it works</h2>
+  <p>Write what you want, choose a style, and press generate. Images and videos are made by AI services that run on a server, and the voice-over plays straight from your device.</p>
+  <p>This page is the front end of the studio. The image and video buttons are ready to be connected to the AI service next.</p>
+</section>
+<footer>Emmanuel AI Studio – a first version of your AI creation site.</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const tabs=['image','video','voice'];
+function show(name){
+  tabs.forEach(t=>{
+    $('t-'+t).setAttribute('aria-selected',t===name);
+    $('p-'+t).hidden=t!==name;
+  });
+  $('demo-note').hidden=true;
+}
+tabs.forEach(t=>$('t-'+t).addEventListener('click',()=>show(t)));
+
+document.querySelectorAll('.chips').forEach(c=>{
+  c.addEventListener('click',e=>{
+    if(e.target.classList.contains('chip')){$(c.dataset.target).value=e.target.textContent;$(c.dataset.target).focus();}
+  });
+});
+
+const notConnected='The AI service isn’t connected yet, so nothing was generated. Once it is, your result will appear in the box above.';
+function demo(promptId,outId,label){
+  const text=$(promptId).value.trim();
+  const out=$(outId);
+  if(!text){out.textContent='Write a description first.';return;}
+  out.innerHTML='';
+  const p=document.createElement('div');
+  const b=document.createElement('b');b.textContent=label+' request ready';
+  const q=document.createElement('p');q.textContent='“'+text+'”';
+  p.append(b,q);out.append(p);
+  const n=$('demo-note');n.textContent=notConnected;n.hidden=false;
+}
+$('img-go').addEventListener('click',async()=>{
+  const text=$('img-prompt').value.trim();
+  const out=$('img-out');
+  const btn=$('img-go');
+  $('demo-note').hidden=true;
+  if(!text){out.textContent='Write a description first.';return;}
+  btn.disabled=true;
+  out.textContent='Generating… this can take up to a minute.';
+  try{
+    const res=await fetch('/api/image',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text+', '+$('img-style').value,shape:$('img-size').value})});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok)throw new Error(data.detail||res.statusText);
+    out.innerHTML='';
+    const im=document.createElement('img');
+    im.src=data.url;im.alt='Generated image';im.style.maxWidth='100%';im.style.borderRadius='12px';
+    out.append(im);
+  }catch(e){out.textContent='Error: '+e.message;}
+  btn.disabled=false;
+});
+$('vid-go').addEventListener('click',()=>demo('vid-prompt','vid-out','Video'));
+
+let voices=[];
+function loadVoices(){
+  if(!('speechSynthesis' in window)){$('voice-play').disabled=true;return;}
+  voices=speechSynthesis.getVoices();
+  const sel=$('voice-pick');sel.innerHTML='';
+  voices.forEach((v,i)=>{const o=document.createElement('option');o.value=i;o.textContent=v.name+' ('+v.lang+')';sel.append(o);});
+}
+loadVoices();
+if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=loadVoices;
+$('voice-play').addEventListener('click',()=>{
+  const t=$('voice-text').value.trim();if(!t)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  const v=voices[$('voice-pick').value];if(v)u.voice=v;
+  u.rate=parseFloat($('voice-rate').value);
+  speechSynthesis.speak(u);
+});
+$('voice-stop').addEventListener('click',()=>{if('speechSynthesis' in window)speechSynthesis.cancel();});
+
+document.querySelectorAll('.plan-btn').forEach(b=>b.addEventListener('click',()=>{
+  const n=$('plan-note');
+  if(b.dataset.plan==='Free'){
+    n.hidden=true;
+    $('studio').scrollIntoView({behavior:'smooth'});
+  }else{
+    n.textContent='Subscriptions aren’t connected yet. Subscribing will work once a payment service such as Paystack is added.';
+    n.hidden=false;
+  }
+}));
+</script>
+</body>
+</html>
